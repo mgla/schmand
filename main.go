@@ -39,22 +39,54 @@ func tweetFeed() {
 
 	units := make([]string, 0)
 	units = append(units,
+		
+		// temperature
+		"°C",
 		"KHz",
 		"british thermal units",
+		// time
 		"days",
-		"decimeters",
-		"grams",
-		"kilograms",
-		"meters",
-		"seconds",
-		"megabytes",
-		"acres",
-		"nautical miles",
-		"oz",
+	        "seconds",
+		"ms",
+                "µs",
+		// distance - astronimical
+		"astronomical units",
 		"parsecs",
+		"milliparsecs",
+		"nanoparsecs",
+		"picoparsecs",
+		"nautical miles",
+		// distance - SI
+		"meters",
+		"decimeters",
+		// weight
+		"kilograms",
+		"grams",
+		// electrical - charge
+		"coulomb",
+		// electrical - capacitance
+		"farad",
+		"millifarad",
+		"microfarad",
+		"nanofarad",
+		"picofarad",
+		"becquerel",
+		// data size
+		"gigabytes",
+		"megabytes",
+		"kilobytes",
+		"bytes",
+		// area
+		"acres",
+		// volume
+		"oz",
+		"liters",
+		"deciliters"
+		"milliliters",
 		"°",
-		"kcal",
-		"µs",
+		// Energy
+		"calories",
+		"kcal"
 	)
 
 	tweet := fmt.Sprintf("%.2f %s of schmand", (rand.Float32() + float32(rand.Intn(8096))), units[rand.Intn(len(units))])
