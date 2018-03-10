@@ -99,9 +99,9 @@ func tweetFeed() {
 		"calories",
 		"kcal",
 		// torque
-		"dynemetre",
+		"dynemetres",
 		// luminence
-		"candela per square metre",
+		"candelas per square metre",
 	)
 	choice := rand.Intn(8)
 	number := "0"
