@@ -17,7 +17,6 @@ var (
 	consumerSecret    = getenv("TWITTER_CONSUMER_SECRET")
 	accessToken       = getenv("TWITTER_ACCESS_TOKEN")
 	accessTokenSecret = getenv("TWITTER_ACCESS_TOKEN_SECRET")
-
 	log = &logger{logrus.New()}
 )
 
@@ -39,29 +38,34 @@ func tweetFeed() {
 
 	units := make([]string, 0)
 	units = append(units,
-		
 		// temperature
 		"°C",
 		"KHz",
 		"british thermal units",
 		// time
 		"days",
-	        "seconds",
+		"seconds",
 		"ms",
-                "µs",
+		"µs",
 		// distance - astronimical
 		"astronomical units",
 		"parsecs",
 		"milliparsecs",
 		"nanoparsecs",
 		"picoparsecs",
+		// distance - obscure
 		"nautical miles",
+		"german miles",
+		"inches",
 		// distance - SI
 		"meters",
 		"decimeters",
 		// weight
 		"kilograms",
 		"grams",
+		"ounces",
+		// electrical - current
+		"amperes",
 		// electrical - charge
 		"coulomb",
 		// electrical - capacitance
@@ -71,7 +75,14 @@ func tweetFeed() {
 		"nanofarad",
 		"picofarad",
 		"becquerel",
-		// data size
+		// electrical - resistance
+		"Ω",
+		// magnetic - flux
+		"weber",
+		"microweber",
+		// digital information
+		"petabytes",
+		"terabytes",
 		"gigabytes",
 		"megabytes",
 		"kilobytes",
@@ -81,15 +92,45 @@ func tweetFeed() {
 		// volume
 		"oz",
 		"liters",
-		"deciliters"
+		"deciliters",
 		"milliliters",
 		"°",
 		// Energy
 		"calories",
-		"kcal"
+		"kcal",
+		// torque
+		"dynemetre",
+		// luminence
+		"candela per square metre",
 	)
-
-	tweet := fmt.Sprintf("%.2f %s of schmand", (rand.Float32() + float32(rand.Intn(8096))), units[rand.Intn(len(units))])
+	choice := rand.Intn(8)
+	number := "0"
+	if choice < 4 {
+		number = fmt.Sprintf("%d", rand.Intn(512))
+	} else if choice < 6 {
+		number = fmt.Sprintf("%.2f", rand.Float32() + float32(rand.Intn(4096)))
+	} else {
+		fractions := make([]string, 0)
+		fractions = append(fractions,
+			"½",
+			"⅓",
+			"⅔",
+			"¼",
+			"¾",
+			"⅕",
+			"⅖",
+			"⅗",
+			"⅘",
+			"⅙",
+			"⅚",
+			"⅛",
+			"⅜",
+			"⅝",
+			"⅞",
+		)
+		number = fmt.Sprint("%d %s", (rand.Intn(9) + 1) ,fractions[rand.Intn(len(fractions))])
+	}
+	tweet := fmt.Sprintf("%s %s of schmand", number, units[rand.Intn(len(units))])
 	_, err := api.PostTweet(tweet, url.Values{})
 	if err != nil {
 		log.Critical(err)
