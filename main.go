@@ -128,8 +128,9 @@ func tweetFeed() {
 			"⅝",
 			"⅞",
 		)
-		number = fmt.Sprint("%d %s", (rand.Intn(9) + 1) ,fractions[rand.Intn(len(fractions))])
+		number = fmt.Sprintf("%d %s", (rand.Intn(9) + 1), fractions[rand.Intn(len(fractions))])
 	}
+	log.Info(fmt.Sprintf("Number: %s", number))
 	tweet := fmt.Sprintf("%s %s of schmand", number, units[rand.Intn(len(units))])
 	_, err := api.PostTweet(tweet, url.Values{})
 	if err != nil {
