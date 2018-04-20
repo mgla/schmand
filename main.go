@@ -13,6 +13,7 @@ import (
 	"gopkg.in/yaml.v2"
 )
 
+// Config struct representation of yaml asset file
 type Config struct {
 	Units []string
 	Fractions []string
