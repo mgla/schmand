@@ -15,6 +15,7 @@ import (
 
 type Config struct {
 	Units []string
+	Fractions []string
 }
 
 var (
@@ -33,8 +34,6 @@ func readConfig() {
 	if err != nil {
 		log.Critical(err)
 	}
-	log.Info("Len")
-	log.Info(fmt.Sprintf("len: %s", len(config.Units)))
 
 }
 
@@ -70,25 +69,7 @@ func tweetFeed() {
 	} else if choice < 6 {
 		number = fmt.Sprintf("%.2f", rand.Float32() + float32(rand.Intn(4096)))
 	} else {
-		fractions := make([]string, 0)
-		fractions = append(fractions,
-			"½",
-			"⅓",
-			"⅔",
-			"¼",
-			"¾",
-			"⅕",
-			"⅖",
-			"⅗",
-			"⅘",
-			"⅙",
-			"⅚",
-			"⅛",
-			"⅜",
-			"⅝",
-			"⅞",
-		)
-		number = fmt.Sprintf("%d %s", (rand.Intn(9) + 1), fractions[rand.Intn(len(fractions))])
+		number = fmt.Sprintf("%d %s", (rand.Intn(9) + 1), config.Fractions[rand.Intn(len(config.Fractions))])
 	}
 	tweet := fmt.Sprintf("%s %s Schmand", number, config.Units[rand.Intn(len( config.Units ))])
 	if (environment == "prod") {
