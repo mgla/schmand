@@ -17,8 +17,17 @@ var (
 	consumerSecret    = getenv("TWITTER_CONSUMER_SECRET")
 	accessToken       = getenv("TWITTER_ACCESS_TOKEN")
 	accessTokenSecret = getenv("TWITTER_ACCESS_TOKEN_SECRET")
+	environment       = getenvf("ENVIRONMENT", "dev")
 	log = &logger{logrus.New()}
 )
+
+func getenvf(key, fallback string) string {
+	res := os.Getenv(key)
+	if res == "" {
+		return fallback
+	}
+	return res
+}
 
 func getenv(name string) string {
 	v := os.Getenv(name)
