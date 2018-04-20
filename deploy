@@ -1,6 +1,0 @@
-#!/bin/sh
-go build && \
-zip schmand.zip schmand && \
-rm schmand && \
-aws lambda update-function-code --function-name schmandbod --zip-file fileb://schmand.zip && \
-rm schmand.zip
