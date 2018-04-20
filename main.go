@@ -140,7 +140,9 @@ func tweetFeed() {
 }
 
 func main() {
-	lambda.Start(tweetFeed)
+	if (environment == "prod") {
+		lambda.Start(tweetFeed)
+	}
 	tweetFeed()
 }
 
