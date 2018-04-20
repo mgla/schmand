@@ -1,0 +1,57 @@
+---
+units:
+# temperature
+- "°C"
+- "KHz"
+- "british thermal units"
+# time
+- "Tage"
+- "Sekunden"
+- "ms"
+- "µs"
+# distance - astronimical
+- "astronische Einheiten"
+- "Parsec"
+- "Milliparsec"
+- "Nanoparsec"
+- "Picoparsec"
+# distance - obscure
+- "nautische Meilen"
+- "Meilen"
+- "Zoll"
+# distance - SI
+- "Meter"
+- "Decimeter"
+- "Millimeter"
+# electrical - current
+- "Ampere"
+# electrical - charge
+- "Coulomb"
+# electrical - capacitance
+- "Farad"
+- "Millifarad"
+- "Microfarad"
+- "Nanofarad"
+- "Picofarad"
+- "Becquerel"
+# electrical - resistance
+- "Ω"
+# magnetic - flux
+- "Weber"
+- "Microweber"
+# digital information
+- "Petabyte"
+- "Terabyte"
+- "Gigabyte"
+- "Megabyte"
+- "Kilobyte"
+- "Bytes"
+# area
+- "Acres"
+# geometrical
+- "°"
+# Energy
+- "Kalorien"
+- "kcal"
+# luminence
+- "Candelas/m²"

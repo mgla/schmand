@@ -10,7 +10,12 @@ import (
 	"github.com/ChimeraCoder/anaconda"
 	"github.com/Sirupsen/logrus"
 	"github.com/aws/aws-lambda-go/lambda"
+	"gopkg.in/yaml.v2"
 )
+
+type Config struct {
+	Units []string
+}
 
 var (
 	consumerKey       = getenv("TWITTER_CONSUMER_KEY")
@@ -19,7 +24,19 @@ var (
 	accessTokenSecret = getenv("TWITTER_ACCESS_TOKEN_SECRET")
 	environment       = getenvf("ENVIRONMENT", "dev")
 	log = &logger{logrus.New()}
+	config Config
 )
+
+func readConfig() {
+	data := MustAsset("data/phrases.yaml")
+	err := yaml.Unmarshal(data, &config)
+	if err != nil {
+		log.Critical(err)
+	}
+	log.Info("Len")
+	log.Info(fmt.Sprintf("len: %s", len(config.Units)))
+
+}
 
 func getenvf(key, fallback string) string {
 	res := os.Getenv(key)
@@ -44,66 +61,8 @@ func tweetFeed() {
 	api := anaconda.NewTwitterApi(accessToken, accessTokenSecret)
 	api.SetLogger(log)
 	rand.Seed(time.Now().Unix())
+	readConfig()
 
-	units := make([]string, 0)
-	units = append(units,
-		// temperature
-		"°C",
-		"KHz",
-		"british thermal units",
-		// time
-		"days",
-		"seconds",
-		"ms",
-		"µs",
-		// distance - astronimical
-		"astronomical units",
-		"parsecs",
-		"milliparsecs",
-		"nanoparsecs",
-		"picoparsecs",
-		// distance - obscure
-		"nautical miles",
-		"german miles",
-		"inches",
-		// distance - SI
-		"meters",
-		"decimeters",
-		// electrical - current
-		"amperes",
-		// electrical - charge
-		"coulomb",
-		// electrical - capacitance
-		"farad",
-		"millifarad",
-		"microfarad",
-		"nanofarad",
-		"picofarad",
-		"becquerel",
-		// electrical - resistance
-		"Ω",
-		// magnetic - flux
-		"weber",
-		"microweber",
-		// digital information
-		"petabytes",
-		"terabytes",
-		"gigabytes",
-		"megabytes",
-		"kilobytes",
-		"bytes",
-		// area
-		"acres",
-		// geometrical
-		"°",
-		// Energy
-		"calories",
-		"kcal",
-		// torque
-		"dynemetres",
-		// luminence
-		"candelas per square metre",
-	)
 	choice := rand.Intn(8)
 	number := "0"
 	if choice < 4 {
@@ -131,11 +90,14 @@ func tweetFeed() {
 		)
 		number = fmt.Sprintf("%d %s", (rand.Intn(9) + 1), fractions[rand.Intn(len(fractions))])
 	}
-	log.Info(fmt.Sprintf("Number: %s", number))
-	tweet := fmt.Sprintf("%s %s of schmand", number, units[rand.Intn(len(units))])
-	_, err := api.PostTweet(tweet, url.Values{})
-	if err != nil {
-		log.Critical(err)
+	tweet := fmt.Sprintf("%s %s Schmand", number, config.Units[rand.Intn(len( config.Units ))])
+	if (environment == "prod") {
+		_, err := api.PostTweet(tweet, url.Values{})
+		if err != nil {
+			log.Critical(err)
+		}
+	} else {
+		log.Info(fmt.Sprintf("Tweet: %s", tweet))
 	}
 }
 
