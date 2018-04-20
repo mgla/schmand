@@ -60,10 +60,6 @@ func tweetFeed() {
 		// distance - SI
 		"meters",
 		"decimeters",
-		// weight
-		"kilograms",
-		"grams",
-		"ounces",
 		// electrical - current
 		"amperes",
 		// electrical - charge
@@ -89,11 +85,7 @@ func tweetFeed() {
 		"bytes",
 		// area
 		"acres",
-		// volume
-		"oz",
-		"liters",
-		"deciliters",
-		"milliliters",
+		// geometrical
 		"°",
 		// Energy
 		"calories",
