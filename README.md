@@ -4,7 +4,7 @@ Extremely stupid bot written after reading https://dev.to/hivickylai/running-a-f
 
 Find me at https://twitter.com/schmandbot.
 
-# Manual dependencies
+## Manual dependencies
 Uses go-bindata for building. Install as follows:
 
     go get -u github.com/jteeuwen/go-bindata/...
